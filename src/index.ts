@@ -33,7 +33,7 @@ export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
           status?: number,
           contentType?: string
         ) => {
-          apiResponse = new ApiResponse(
+          apiResponse = new ApiBuilder.ApiResponse(
             body,
             { 'X-Version': `${status}`, 'Content-Type': contentType },
             status
@@ -47,7 +47,7 @@ export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
         await Api.handleRequest(api, middleware);
         return (
           apiResponse ||
-          new ApiResponse(
+          new ApiBuilder.ApiResponse(
             'Server Error',
             { 'X-Version': `500`, 'Content-Type': 'text/plain' },
             500
@@ -58,11 +58,6 @@ export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
   }
 }
 
-const ApiResponse: any = function(response: any, headers: any, code: any) {
-  this.response = response;
-  this.headers = headers;
-  this.code = code;
-};
 
 class ClaudiaMiddleware implements RotiroMiddleware {
   private readonly _requestDetail: RequestDetail;
