@@ -58,9 +58,11 @@ export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
   }
 }
 
-class ApiResponse {
-  constructor(public response: any, public headers: any, public code: any) {}
-}
+const ApiResponse: any = function(response: any, headers: any, code: any) {
+  this.response = response;
+  this.headers = headers;
+  this.code = code;
+};
 
 class ClaudiaMiddleware implements RotiroMiddleware {
   private readonly _requestDetail: RequestDetail;
