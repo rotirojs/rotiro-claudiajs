@@ -1,5 +1,6 @@
 import ApiBuilder from 'claudia-api-builder';
 import { Api, RequestDetail, RotiroMiddleware, SendResponse } from 'rotiro';
+import {replaceVariables} from './utils';
 
 export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
   const routesAndMethods = api.endpoints.getRoutesAndMethods();
@@ -25,7 +26,7 @@ export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
           break;
       }
 
-      apiBuildAction.call(undefined, endpoint.path, async (request: any) => {
+      apiBuildAction.call(undefined, replaceVariables(endpoint.path), async (request: any) => {
         let apiResponse: any;
 
         const sendResponse: SendResponse = (
