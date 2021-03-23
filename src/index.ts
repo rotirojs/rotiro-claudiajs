@@ -1,6 +1,6 @@
 import ApiBuilder from 'claudia-api-builder';
 import { Api, RequestDetail, RotiroMiddleware, SendResponse } from 'rotiro';
-import {replaceVariables} from './utils';
+import { replaceVariables } from './utils';
 
 export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
   const routesAndMethods = api.endpoints.getRoutesAndMethods();
@@ -26,39 +26,42 @@ export function addRoutes(apiBuilder: ApiBuilder, api: Api) {
           break;
       }
 
-      apiBuildAction.call(undefined, replaceVariables(endpoint.path), async (request: any) => {
-        let apiResponse: any;
+      apiBuildAction.call(
+        undefined,
+        replaceVariables(endpoint.path),
+        async (request: any) => {
+          let apiResponse: any;
 
-        const sendResponse: SendResponse = (
-          body: any,
-          status?: number,
-          contentType?: string
-        ) => {
-          apiResponse = new ApiBuilder.ApiResponse(
-            body,
-            { 'X-Version': `${status}`, 'Content-Type': contentType },
-            status
+          const sendResponse: SendResponse = (
+            body: any,
+            status?: number,
+            contentType?: string
+          ) => {
+            apiResponse = new ApiBuilder.ApiResponse(
+              body,
+              { 'X-Version': `${status}`, 'Content-Type': contentType },
+              status
+            );
+          };
+          const middleware: RotiroMiddleware = new ClaudiaMiddleware(
+            sendResponse,
+            request
           );
-        };
-        const middleware: RotiroMiddleware = new ClaudiaMiddleware(
-          sendResponse,
-          request
-        );
 
-        await Api.handleRequest(api, middleware);
-        return (
-          apiResponse ||
-          new ApiBuilder.ApiResponse(
-            'Server Error',
-            { 'X-Version': `500`, 'Content-Type': 'text/plain' },
-            500
-          )
-        );
-      });
+          await Api.handleRequest(api, middleware);
+          return (
+            apiResponse ||
+            new ApiBuilder.ApiResponse(
+              'Server Error',
+              { 'X-Version': `500`, 'Content-Type': 'text/plain' },
+              500
+            )
+          );
+        }
+      );
     }
   }
 }
-
 
 class ClaudiaMiddleware implements RotiroMiddleware {
   private readonly _requestDetail: RequestDetail;
@@ -68,7 +71,8 @@ class ClaudiaMiddleware implements RotiroMiddleware {
       body: request.rawBody,
       headers: request.headers || {},
       method: request.context.method,
-      url: request.context.path
+      url: request.context.path,
+      meta: { claudiaRequest: request }
     };
   }
 
