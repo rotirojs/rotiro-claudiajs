@@ -3452,10 +3452,10 @@ rimraf@^3.0.0:
   dependencies:
     glob "^7.1.3"
 
-rotiro@^1.0.15:
-  version "1.0.28"
-  resolved "https://registry.yarnpkg.com/rotiro/-/rotiro-1.0.28.tgz#e5a31852297bb8594063d868f3dc54de2321b81b"
-  integrity sha512-rwsDWC8NU2xWSIPtrjnNMCMxBnCB/607kAjqwnqf6SBOK1ZlwcbGmItyQyP8h9B4KKkd8eu5YrJlnsexSxCuVw==
+rotiro@^1.0.28:
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/rotiro/-/rotiro-1.0.29.tgz#24a9c3269d6e71c838f37565609f259c4501c283"
+  integrity sha512-SR+Yw2w3vgYIZEne2LQwBfK+2y1Cp4g+khvRVN7Ds0nImoHqLq0by2HGPqCYsmzDjuqkOVljz5ydEc7RBFCc6w==
   dependencies:
     debug "^4.3.1"
     path-to-regexp "^6.2.0"
