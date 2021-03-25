@@ -1,6 +1,6 @@
 {
   "name": "@rotirojs/rotiro-claudiajs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Rotiro Claudia.js Middleware",
   "author": "Alex Everitt",
   "scripts": {
@@ -34,7 +34,7 @@
     "claudia": "^5.13.0",
     "claudia-api-builder": "^4.1.2",
     "debug": "^4.3.1",
-    "rotiro": "^1.0.15"
+    "rotiro": "^1.0.28"
   },
   "bugs": {
     "url": "https://github.com/rotirojs/rotiro-express/issues"
